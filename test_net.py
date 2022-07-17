@@ -46,8 +46,18 @@ def perform_inference(test_loader, model, cfg):
     model.eval()
 
     feat_arr = None
-
+    
+    if cfg.SPARSE:
+        count = -1
+        
     for inputs in tqdm(test_loader):
+        
+        if cfg.SPARSE:
+            count += 1
+            if (count%32) != 16:
+                continue
+        
+        print(count)
         # Transfer the data to the current GPU device.
         if isinstance(inputs, (list,)):
             for i in range(len(inputs)):
@@ -98,7 +108,7 @@ def test(cfg):
     cu.load_test_checkpoint(cfg, model)
 
     vid_root = os.path.join(cfg.DATA.PATH_TO_DATA_DIR, cfg.DATA.PATH_PREFIX)
-    videos_list_file = os.path.join(cfg.DATA.PATH_TO_DATA_DIR, "vid_list.csv")
+    videos_list_file = os.path.join(cfg.DATA.PATH_TO_DATA_DIR, "video_list.csv")
 
     print("Loading Video List ...")
     with open(videos_list_file) as f:

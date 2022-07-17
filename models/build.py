@@ -69,6 +69,7 @@ def build_model(cfg):
             ],  # None for AdaptiveAvgPool3d((1, 1, 1))
             dropout_rate=cfg.MODEL.DROPOUT_RATE,
             act_func=cfg.MODEL.HEAD_ACT,
+            cfg=cfg
         )
     elif name == "ResNet":
         model = ResNetFeat(cfg)
