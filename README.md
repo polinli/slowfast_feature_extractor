@@ -2,9 +2,45 @@
 
 Extract features from videos with a pre-trained SlowFast model using the PySlowFast framework.
 
-**Update**: The installation instructions has been updated for the latest Pytorch 1.6 and Torchvision 0.7 with Cuda 10.2. Please follow the new instructions to refresh the Pyslowfast installation if you had already done it before.
+This fork add Docker support on top of the original [slowfast_feature_extractor](https://github.com/tridivb/slowfast_feature_extractor) and fix some bugs.
 
-## Install requirements
+## Getting Started
+
+Clone the repo:
+
+```
+git clone https://github.com/polinli/slowfast_feature_extractor.git
+```
+
+## Dokcer support
+Build the docker image:
+```
+docker build -t slowfast-extractor .
+```
+
+Run the docker image:
+```
+source docker_run.sh
+```
+
+Once successfully run the docker image, you will be inside the container in the directory `/slowfast_feature_extractor`.
+
+Install slowfast and pytorchvideo in `/slowfast_feature_extractor`:
+```
+git clone https://github.com/facebookresearch/slowfast
+PYTHONPATH=/slowfast_feature_extractor/slowfast:$PYTHONPATH
+cd slowfast
+python setup.py build develop
+```
+```
+git clone https://github.com/facebookresearch/pytorchvideo.git
+cd pytorchvideo
+pip install -e .
+```
+
+Don't forget to docker commit the container if you want to exit the container.
+
+## Install requirements (original method, skip if using Docker)
 
 1. Ubuntu 16.x/18.x (Only tested on these two systems)
 2. Cuda 10.2
@@ -45,21 +81,13 @@ cd slowfast
 python setup.py build develop
 ```
 
-## Getting Started
-
-Clone the repo and set it up in your local drive.
-
-```
-git clone https://github.com/tridivb/slowfast_feature_extractor.git
-```
-
 ## Data Preparation
 
 The videos can be setup in the following way:
 
 ```
 |---<path to dataset>
-|   |---vid_list.csv
+|   |---video_list.csv
 |   |---video_1.mp4
 |   |---video_2
 |   |   |---video_2.mp4
@@ -71,7 +99,7 @@ The videos can be setup in the following way:
 or pre-process the videos and extract the frames like below:
 ```
 |---<path to dataset>
-|   |---vid_list.csv
+|   |---video_list.csv
 |   |---video_1
 |   |   |---frame01.jpg
 |   |   |---frame02.jpg
@@ -85,7 +113,7 @@ or pre-process the videos and extract the frames like below:
 
 ```
 
-The vid_list.csv should have the paths of all the videos or subdirectories for extracted frames. 
+The video_list.csv should have the paths of all the videos or subdirectories for extracted frames. 
 All the videos/image files should have the same type of extension.
 Based on the hierarchy above, it should be like:
 
@@ -105,7 +133,7 @@ Navigate to the slowfast_feature_extractor directory.
 cd /path/to/slowfast_feature_extractor
 ```
 
-Download the pre-trained [weights](https://github.com/facebookresearch/SlowFast/blob/master/MODEL_ZOO.md) from the PySlowFast Model Zoo and copy it to your desired location.
+Download the pre-trained [weights](https://github.com/facebookresearch/SlowFast/blob/master/MODEL_ZOO.md) from the PySlowFast Model Zoo and copy it to `/ckpt`
 
 ## Configure the paramters
 
