@@ -1,23 +1,23 @@
 TRAIN:
   ENABLE: False
   DATASET: videoset
-  CHECKPOINT_FILE_PATH: "/home/zixuan/slowfast_feature_extractor/slowfast_model/SLOWFAST_8x8_R50.pkl"
+  CHECKPOINT_FILE_PATH: "/slowfast_feature_extractor/ckpt/SLOWFAST_8x8_R50.pkl"
   CHECKPOINT_TYPE: caffe2
 DATA:
-  PATH_TO_DATA_DIR: "/dvmm-filer2/users/zixuan/Datasets/VAR/rawframes"
+  PATH_TO_DATA_DIR: "/slowfast_feature_extractor/paul_dataset/h2odataset"
   PATH_PREFIX: ""
-  NUM_FRAMES: 32
+  NUM_FRAMES: 16
   SAMPLING_RATE: 2
   TRAIN_JITTER_SCALES: [256, 320]
   TRAIN_CROP_SIZE: 224
   TEST_CROP_SIZE: 256
   INPUT_CHANNEL_NUM: [3, 3]
-  IN_FPS: 25
-  OUT_FPS: 25
+  IN_FPS: 30
+  OUT_FPS: 30
   READ_VID_FILE: False
   VID_FILE_EXT: ".mp4"
   IMG_FILE_EXT: ".jpg"
-  IMG_FILE_FORMAT: "img_{:05d}.jpg"
+  IMG_FILE_FORMAT: "{:06d}.jpg"
   SAMPLE_SIZE: [256, 256]
 SLOWFAST:
   ALPHA: 4
@@ -68,4 +68,4 @@ DETECTION:
 NUM_GPUS: 1
 NUM_SHARDS: 1
 RNG_SEED: 0
-OUTPUT_DIR: "/dvmm-filer2/users/zixuan/Datasets/VAR/slowfast_feat"
+OUTPUT_DIR: "/slowfast_feature_extractor/paul_dataset/h2odataset/data/slowfast_frames"

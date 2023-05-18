@@ -1,0 +1,1 @@
+python run_net.py --cfg ./configs/SLOWFAST_8x8_R50.yaml
